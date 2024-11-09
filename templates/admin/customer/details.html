@@ -1,0 +1,62 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Customer Details {% endblock %}
+
+{% block content %}
+<!-- Customer Details -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    {% if customer %}
+    <h2 class="card-title text-lg">Customer Details:</h2>
+    <table class="table table-lg">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">ID:</td>
+          <td>{{ customer.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Name:</td>
+          <td>{{ customer.user.fullname }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Email:</td>
+          <td>{{ customer.user.email }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Status:</td>
+          <td>{{ customer.status }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Address:</td>
+          <td>{{ customer.address }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Pin Code:</td>
+          <td>{{ customer.pincode }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Joined:</td>
+          <td>{{ customer.created }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Customer Actions -->
+    <div class="flex items-center justify-end gap-4">
+      <a href="{{ url_for('customer_activate', cust_id=customer.id) }}">
+        <button class="btn btn-sm btn-success">Activate</button>
+      </a>
+      <a href="{{ url_for('customer_block', cust_id=customer.id) }}">
+        <button class="btn btn-sm btn-error">Block</button>
+      </a>
+    </div>
+    {% else %}
+    <p class="text-center text-lg font-bold">Requested customer not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

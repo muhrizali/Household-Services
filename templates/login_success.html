@@ -1,0 +1,27 @@
+{% extends "base/loggedout.html" %}
+
+{% block title %} Registeration Successfull {% endblock %}
+
+{% block content %}
+<div class="card card-bordered w-2/3">
+
+    <div action="{{ url_for('customer_register') }}" method="post" class="card-body form-control">
+    <!-- Flask Flash Success Messages -->
+        {% with msgs = get_flashed_messages(category_filter=["success"]) %}
+        {% if msgs %}
+        <div class="bg-success font-semibold p-4 my-4 rounded-md border-2 border-success-content/50">
+            <ul>
+            {%- for msg in msgs %}
+                <li>{{ msg }}</li>
+            {% endfor -%}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+
+        <h2 class="card-title text-2xl text-center">Login Successfull!</h2>
+        <p class="text-lg">User ID: {{ current_user.id }}, Username {{ current_user.fullname }}</p>
+        <p class="text-lg">Go to <a class="link link-primary" href="{{ url_for('login') }}">Login</a></p>
+    </div>
+{% endblock %}

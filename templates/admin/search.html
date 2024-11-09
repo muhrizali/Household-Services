@@ -1,0 +1,31 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+<!-- Search Section -->
+<!-- Search Box form -->
+<div class="card border-2 rounded-sm border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-lg font-semibold">Search By:</h2>
+    <form action="{{ url_for('admin_search') }}" method="post" class="form-control">
+      {{ form.csrf_token }}
+      {{ form.parameter(class="w-96 select select-lg select-bordered rounded-sm border-2") }}
+      {{ form.search(placeholder="Search", class="w-96 input input-lg input-bordered rounded-sm border-2 mt-4") }}
+      {{ form.submit(value="Search", class="btn btn-lg btn-primary mt-4") }}
+    </form>
+  </div>
+</div>
+
+  <h2 class="text-lg font-semibold">Search Results:</h2>
+  {% if professionals %}
+    {% include "admin/professional/list.html" %}
+  {% elif customers %}
+    {% include "admin/customer/list.html" %}
+  {% elif services %}
+    {% include "admin/service/list.html" %}
+  {% elif requests %}
+    {% include "admin/service/request_list.html" %}
+  {% endif %}
+
+{% endblock %}

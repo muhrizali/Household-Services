@@ -1,0 +1,12 @@
+<!-- Form Errors -->
+{% if form.errors %}
+<div class="bg-error p-4 my-4 rounded-md border-2 border-error-content/50">
+  <h2 class="text-lg font-medium">Form Errors</h2>
+  <ul>
+    {% for field_name, field_errors in form.errors|dictsort if
+    field_errors %} {% for error in field_errors %}
+    <li>{{ form[field_name].label }}: {{ error }}</li>
+    {% endfor %} {% endfor %}
+  </ul>
+</div>
+{% endif %}

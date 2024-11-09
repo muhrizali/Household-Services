@@ -1,0 +1,76 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Edit Service {% endblock %}
+
+{% block content %}
+<!-- Add new service form -->
+<div class="flex items-center justify-center w-full h-fit m-8">
+  <div class="card card-bordered border-2 border-primary-content/25 w-2/3">
+    <div class="card-body">
+
+      {% if service %}
+      <form action="{{ url_for('service_edit', service_id=service.id) }}" method="post" class="form-control">
+        {{ form.csrf_token }}
+
+        <!-- Form Errors -->
+      {% include "form_errors.html" %}
+
+      <!-- FLASK FLASH MESSAGES -->
+      {% include "flashes.html" %}
+
+        <h2 class="card-title text-lg">
+          Edit Service
+        </h2>
+        <table class="table table-sm">
+          <tr>
+            <td>
+              {{ form.name.label }}
+            </td>
+            <td>
+              {{ form.name(value=service.name, class="input w-full input-bordered border-2") }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              {{ form.description.label }}
+            </td>
+            <td>
+              <textarea name="description" id="description" class="textarea w-full textarea-bordered border-2" ,
+                rows="4">{{ service.description }}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ form.price.label }}
+            </td>
+            <td>
+              {{ form.price(value=service.price, class="input w-full input-bordered border-2") }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ form.timereq.label }}
+            </td>
+            <td>
+              {{ form.timereq(value=service.timereq, class="input w-full input-bordered border-2") }}
+            </td>
+          </tr>
+        </table>
+
+        <!-- Buttons Adding Services -->
+        <div class="flex items-center justify-center mt-4">
+          <input value="Submit" type="submit" class="btn btn-block btn-lg btn-primary" />
+        </div>
+      </form>
+      {% else %}
+      <p class="text-center text-lg font-bold">Requested service not found</p>
+      {% endif %}
+
+      <p class="text-center pt-2">
+        Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

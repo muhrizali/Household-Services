@@ -1,0 +1,79 @@
+{% extends "base/customer/loggedin.html" %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block content %}
+<div class="card card-bordered w-1/2">
+  <div class="card-body form-control">
+    <!-- Form Errors -->
+    {% include "form_errors.html" %}
+
+    <!-- FLASK FLASH MESSAGES -->
+    {% include "flashes.html" %}
+
+    <form action="{{ url_for('customer_edit', cust_id=customer.id) }}" method="post">
+      {{ form.csrf_token }}
+
+      <h2 class="card-title text-2xl text-center">Profile Edit</h2>
+
+      <table class="table table-lg">
+        <tr>
+          <td>
+            {{ form.fullname.label }}
+          </td>
+          <td>
+            {{ form.fullname(value=customer.user.fullname, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form.username.label }}
+          </td>
+          <td>
+            {{ form.username(value=customer.user.username, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form.email.label }}
+          </td>
+          <td>
+            {{ form.email(value=customer.user.email, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label }}</td>
+          <td>
+            {{ form.password(value=customer.user.password, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.contact.label }}</td>
+          <td>
+            {{ form.contact(value=customer.contact, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.address.label }}</td>
+          <td>
+            <textarea rows="4" name="address" id="address"
+              class="textarea w-full textarea-bordered">{{ customer.address }}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.pincode.label }}</td>
+          <td>
+            {{ form.pincode(value=customer.pincode, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+      </table>
+      <input value="Submit" type="submit" class="btn btn-block btn-lg btn-primary mt-8" />
+    </form>
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}"
+        class="link link-primary">Home</a>
+    </p>
+  </div>
+
+</div>
+{% endblock %}

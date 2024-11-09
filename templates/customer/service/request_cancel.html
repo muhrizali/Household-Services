@@ -1,0 +1,30 @@
+{% extends "base/customer/loggedin.html" %}
+
+{% block title %} Cancel Request {% endblock %}
+
+{% block content %}
+<!-- Accept Form -->
+<div class="card w-1/4 border-2 rounded-sm border-primary-content/25">
+  <div class="card-body">
+    <!-- FLASK FLASH MESSAGES -->
+    {% include "flashes.html" %}
+
+    {% if service_request and customer %}
+    <h2 class="text-lg text-center font-semibold">
+      Do you want to cancel the service request <b>{{ service_request.service().name }}</b>?
+    </h2>
+    <form action="{{ url_for('customer_request_cancel', cust_id=customer.id, req_id=service_request.id) }}" method="post" class="form-control mt-4">
+      <div class="flex items-center justify-center gap-4">
+        {{ form.cancel(class="btn btn-block btn-error", value="Cancel") }}
+      </div>
+    </form>
+    {% else %}
+    <p class="text-center text-lg font-bold">Request not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

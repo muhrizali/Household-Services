@@ -1,0 +1,47 @@
+<!-- Professional List Table -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+    <div class="card-body">
+        <h2 class="text-xl font-semibold">Professionals</h2>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>SERVICE</th>
+                    <th>RATING</th>
+                    <th>APPROVAL</th>
+                    <th>APPLIED</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prof in profs %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('customer_prof_details', cust_id=customer.id, prof_id=prof.id) }}">
+                            <button class="btn btn-sm">{{ prof.id }}</button>
+                        </a>
+                    </td>
+                    <td>{{ prof.user.fullname }}</td>
+                    <td>{{ prof.service.name }}</td>
+                    <td>{{ prof.get_avg_rating() }}</td>
+
+                    <td>
+                        {% if prof.approval == "PENDING" %}
+                        <span class="badge badge-lg border-dashed">{{ prof.approval }}</span>
+                        {% elif prof.approval == "REJECTED" %}
+                        <span class="badge badge-lg badge-error">{{ prof.approval }}</span>
+                        {% else %}
+                        <span class="badge badge-lg badge-success">{{ prof.approval }}</span>
+                        {% endif %}
+                    </td>
+                    <td>On {{ prof.created.ctime() }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center font-bold text-error-content text-lg">No Professionals Found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

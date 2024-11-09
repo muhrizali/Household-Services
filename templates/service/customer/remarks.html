@@ -1,0 +1,87 @@
+<!-- MAIN CONTENT -->
+<!-- Remarks Form; Closing Request -->
+
+<div>
+
+  <section class="w-2/3 card card-bordered border-2">
+    <div class="card-body">
+      <h2 class="card-title text-lg">Closing Service?</h2>
+      <table class="table table-sm">
+        <tbody>
+          <tr>
+            <td class="text-lg font-bold underline">Name:</td>
+            <td>service name</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Description:</td>
+            <td>description</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Price:</td>
+            <td>service price</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Requested:</td>
+            <td>date</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Professional ID:</td>
+            <td>professional id</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Professional Name:</td>
+            <td>professional name</td>
+          </tr>
+          <tr>
+            <td class="text-lg font-bold underline">Contact:</td>
+            <td>professional phone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Rating and Remarks Form -->
+  <section class="w-2/3 card card-bordered border-2">
+    <div class="card-body">
+      <h2 class="card-title text-lg">Rate Us!</h2>
+      <form action="" method="" class="card-body form-control">
+        <table class="table">
+
+          <!-- Selecting Service Type from DB -->
+          <tr>
+            <td>
+              <label for="rating">Rating:</label>
+            </td>
+            <td>
+              <select name="rating" id="rating" class="select w-full select-bordered">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="remarks">Remarks (if any):</label>
+            </td>
+            <td>
+              <textarea id="remarks" name="remarks" rows="4" placeholder="Your experience..."
+                class="textarea w-full textarea-bordered"></textarea>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Rating Actions -->
+        <div class="flex items-center justify-end gap-4">
+          <input type="button" value="Submit" class="btn btn-sm btn-success">
+          <input type="button" value="Cancel" class="btn btn-sm btn-warning">
+        </div>
+      </form>
+
+    </div>
+  </section>
+</div>

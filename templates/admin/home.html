@@ -1,0 +1,18 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+  <!-- Services List Table -->
+  {% include "admin/service/list.html" %}
+
+  <!-- Professionals List Table -->
+  {% include "admin/professional/list.html" %}
+
+  <!-- Customer List Table -->
+  {% include "admin/customer/list.html" %}
+
+  <!-- Service Requests Table -->
+  {% include "admin/service/request_list.html" %}
+
+{% endblock %}

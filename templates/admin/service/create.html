@@ -1,0 +1,70 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Create New Service {% endblock %}
+
+{% block content %}
+<!-- Add new service form -->
+<div class="flex items-center justify-center w-full h-fit m-8">
+  <div class="card card-bordered border-2 border-primary-content/25 w-2/3">
+    <div class="card-body">
+
+      <form action="{{ url_for('service_create') }}" method="post" class="form-control">
+        {{ form.csrf_token }}
+  
+        <!-- Form Errors -->
+      {% include "form_errors.html" %}
+
+      <!-- FLASK FLASH MESSAGES -->
+      {% include "flashes.html" %}
+  
+        <h2 class="card-title text-lg">
+          Add New Service
+        </h2>
+        <table class="table table-sm">
+          <tr>
+            <td>
+              {{ form.name.label }}
+            </td>
+            <td>
+              {{ form.name(class="input w-full input-bordered border-2", placeholder="Cleaning, Cooking, Repair...") }}
+            </td>
+          </tr>
+  
+          <tr>
+            <td>
+              {{ form.description.label }}
+            </td>
+            <td>
+              {{ form.description(placeholder="Your service description", class="textarea w-full textarea-bordered border-2", rows=4) }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ form.price.label }}
+            </td>
+            <td>
+              {{ form.price(placeholder="Your Price", class="input w-full input-bordered border-2") }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ form.timereq.label }}
+            </td>
+            <td>
+              {{ form.timereq(class="input w-full input-bordered border-2", placeholder="1, 2, 3...") }}
+            </td>
+          </tr>
+        </table>
+  
+        <!-- Buttons Adding Services -->
+        <div class="flex items-center justify-center mt-4">
+          <input value="Create Service" type="submit" class="btn btn-block btn-lg btn-primary" />
+        </div>
+      </form>
+      <p class="text-center pt-2">
+        Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

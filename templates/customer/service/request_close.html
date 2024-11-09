@@ -1,0 +1,105 @@
+{% extends "/base/customer/loggedin.html" %}
+
+{% block title %} Close Request? {% endblock %}
+
+{% block content %}
+<!-- MAIN CONTENT -->
+<!-- Remarks Form; Closing Request -->
+
+
+
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    <!-- FLASK FLASH MESSAGES -->
+    {% include "flashes.html" %}
+    <h2 class="card-title text-lg">Closing Service?</h2>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">REQUEST ID:</td>
+          <td>{{ service_request.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">NAME:</td>
+          <td>{{ service_request.service().name }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">DESCRIPTION:</td>
+          <td>{{ service_request.service().description }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PRICE:</td>
+          <td>{{ service_request.service().price }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">REQUESTED:</td>
+          <td>{{ service_request.created.ctime() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PROFESSIONAL ID:</td>
+          <td>{{ service_request.prof().id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PROFESSIONAL:</td>
+          <td>{{ service_request.prof().user.fullname }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CONTACT:</td>
+          <td>{{ service_request.prof().contact }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Rating and Remarks Form -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    <h2 class="card-title text-lg">Rate Us!</h2>
+    <form action="{{ url_for('customer_request_close', cust_id=customer.id, req_id=service_request.id) }}" method="post" class="card-body form-control">
+      {{ form.csrf_token }}
+      <table class="table">
+
+        <!-- Selecting Service Type from DB -->
+        <tr>
+          <td class="text-lg font-bold underline">
+            {{ form.rating.label }}
+          </td>
+          <td>
+            {{ form.rating(class="select w-full select-bordered") }}
+            <!-- <select name="rating" id="rating" class="select w-full select-bordered">
+              <option value="1">⭐</option>
+              <option value="2">⭐⭐</option>
+              <option value="3">⭐⭐⭐</option>
+              <option value="4">⭐⭐⭐⭐</option>
+              <option value="5">⭐⭐⭐⭐⭐</option>
+            </select> -->
+          </td>
+        </tr>
+
+        <tr>
+          <td class="text-lg font-bold underline">
+            {{ form.remarks.label }}
+            <!-- <label for="remarks">Remarks (if any):</label> -->
+          </td>
+          <td>
+            {{ form.remarks(rows="4", placeholder="Your experience...", class="textarea w-full textarea-bordered") }}
+            <!-- <textarea id="remarks" name="remarks" rows="4" placeholder="Your experience..."
+              class="textarea w-full textarea-bordered"></textarea> -->
+          </td>
+        </tr>
+      </table>
+
+      <!-- Rating Actions -->
+      <div class="flex items-center justify-end gap-4">
+        <input type="submit" value="Submit" class="btn btn-block btn-success">
+      </div>
+    </form>
+
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+    </p>
+
+  </div>
+</section>
+{% endblock %}

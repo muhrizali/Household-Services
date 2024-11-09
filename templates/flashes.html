@@ -1,0 +1,12 @@
+<!-- FLASK FLASH MESSAGES -->
+{% with msgs = get_flashed_messages() %}
+{% if msgs %}
+<div class="bg-warning font-semibold p-4 my-4 rounded-md border-2 border-warning-content/50">
+    <ul class=flashes>
+        {% for msg in msgs %}
+        <li>{{ msg }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endwith %}

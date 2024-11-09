@@ -1,0 +1,52 @@
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Services</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>SERVICE</th>
+          <th>PRICE</th>
+          <th>CREATED</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for service in services %}
+          <tr>
+            <td>
+              <a href="{{ url_for('service_details', service_id=service.id) }}">
+                <button class="btn btn-sm">{{ service.id }}</button>
+              </a>
+
+            </td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.price }}</td>
+            <td>{{ service.created.ctime() }}</td>
+            <td>
+              <span>
+                <a href="{{ url_for('service_edit', service_id=service.id) }}">
+                  <button class="btn btn-sm btn-warning">Edit</button>
+                </a>
+                <a href="{{ url_for('service_delete', service_id=service.id) }}">
+                  <button class="btn btn-sm btn-error">Delete</button>
+                </a>
+              </span>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center font-bold text-error-content text-lg">No Services Found</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Add Service button -->
+    <div class="flex items-center justify-end">
+      <a href="{{ url_for('service_create') }}">
+        <button class="btn btn-sm btn-success">+ New Service</button>
+      </a>
+    </div>
+  </div>
+</section>

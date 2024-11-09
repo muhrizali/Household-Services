@@ -1,0 +1,21 @@
+<!-- Service History -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Service Showcase:</h2>
+    {% if services %}
+    <div class="grid grid-rows-3 grid-flow-col auto-cols-[32.15%] overflow-x-auto gap-4 p-4 h-56">
+      <!-- TODO: SERVICE FLEX -->
+      <!-- Item -->
+      {% for service in services %}
+      <a href="{{ url_for('customer_service_details', cust_id=customer.id, service_id=service.id) }}" class="pt-2 pl-2 rounded-md border-2 hover:bg-slate-200 hover:border-slate-400">
+        <div>
+          <h3 class="card-title font-medium text-lg text-base-content/75 hover:underline">{{ service.name }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-xl text-center font-medium">No Services Found</p>
+    {% endif %}
+  </div>
+</section>

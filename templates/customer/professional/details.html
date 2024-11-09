@@ -1,0 +1,73 @@
+{% extends "base/customer/loggedin.html" %}
+
+{% block title %} Professional Details {% endblock %}
+
+{% block content %}
+<!-- Service Details Section -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    {% if prof %}
+    <h2 class="card-title text-lg">Professional Details:</h2>
+    <table class="table table-lg">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">ID:</td>
+          <td>{{ prof.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">NAME:</td>
+          <td>{{ prof.user.fullname }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">USERNAME:</td>
+          <td>{{ prof.user.username }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">SERVICE:</td>
+          <td>{{ prof.service.name }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">AVERAGE RATING:</td>
+          <td>{{ prof.get_avg_rating() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">EMAIL:</td>
+          <td>{{ prof.user.email }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CONTACT:</td>
+          <td>{{ prof.contact }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">ADDRESS:</td>
+          <td>{{ prof.address }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PIN CODE:</td>
+          <td>{{ prof.pincode }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">EXPERIENCE:</td>
+          <td>{{ prof.experience }} Years</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">DESCRIPTION:</td>
+          <td>{{ prof.description }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CREATED:</td>
+          <td>{{ prof.created.ctime() }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% else %}
+    <p class="text-center text-lg font-bold">Requested professional not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

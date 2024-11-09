@@ -1,0 +1,110 @@
+{% extends "base/loggedout.html" %}
+{% block title %} Professional Register {% endblock %}
+{% block content %}
+<!-- MAIN CONTENT -->
+<!-- Register form for Customer -->
+<div class="card card-bordered w-1/2">
+  <form action="{{ url_for('professional_register') }}" method="post" class="card-body form-control">
+    {{ form.csrf_token }}
+    {{ form.role(value="PROFESSIONAL") }}
+
+
+    <h2 class="card-title text-2xl text-center">Professional Signup</h2>
+
+    <!-- Form Errors -->
+    {% include "form_errors.html" %}
+
+    <!-- FLASK FLASH MESSAGES -->
+    {% include "flashes.html" %}
+    
+    
+    <table class="table table-lg">
+      <tr>
+        <td>
+          {{ form.email.label }}
+        </td>
+        <td>
+          {{ form.email(placeholder="johndoe@email.com", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.fullname.label }}
+        </td>
+        <td>
+          {{ form.fullname(placeholder="John Doe", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.username.label }}
+        </td>
+        <td>
+          {{ form.username(placeholder="johndoe", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label }}</td>
+        <td>
+          {{ form.password(placeholder="Your-Secret-Password",
+          class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.confirm.label }}</td>
+        <td>
+          {{ form.confirm(placeholder="Your-Secret-Password", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ form.service_id.label }}
+        </td>
+        <td>
+          {{ form.service_id(class="select w-full select-bordered") }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>{{ form.contact.label }}</td>
+        <td>
+          {{ form.contact(placeholder="9876543210", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.experience.label }}</td>
+        <td>
+          {{ form.experience(placeholder="10, 8, 6...", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.description.label }}</td>
+        <td>
+          {{ form.description(placeholder="About Yourself...",
+          class="textarea w-full textarea-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.address.label }}</td>
+        <td>
+          {{ form.address(placeholder="Your Address...",
+          class="textarea w-full textarea-bordered") }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>{{ form.pincode.label }}</td>
+        <td>
+          {{ form.pincode(placeholder="112233", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+    </table>
+    <input value="Register" type="submit" class="btn btn-block btn-lg btn-primary" />
+    <p class="text-center pt-2">
+      Already a member?
+      <a href="{{ url_for('login') }}" class="link link-primary">Login here</a>
+    </p>
+  </form>
+</div>
+{% endblock %}

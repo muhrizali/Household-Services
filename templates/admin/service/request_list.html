@@ -1,0 +1,52 @@
+<!-- Service Requests List Table -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Service Requests</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CUSTOMER</th>
+          <th>SERVICE</th>
+          <th>PROFESSIONAL</th>
+          <th>REQUESTED</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+          <tr>
+            <td>
+              <a href="{{ url_for('request_details', request_id=request.id) }}">
+                <button class="btn btn-sm">{{ request.id }}</button>
+              </a>
+            </td>
+            <td>{{ request.customer.user.fullname }}</td>
+            <td>{{ request.service().name }}</td>
+            <td>
+              {% if request.status == "REQUESTED" %}
+                NOT ASSIGNED
+              {% else %}
+                {{ request.prof().user.fullname }}
+              {% endif %}
+            </td>
+            <td>{{ request.created.ctime() }}</td>
+            <td>
+              {% if request.status == "REQUESTED" %}
+                <span class="badge badge-lg badge-error">REQUESTED</span>
+              {% elif request.status == "ASSIGNED" %}
+                <span class="badge badge-lg badge-warning">ASSIGNED</span>
+              {% else %}
+                <span class="badge badge-lg badge-success">CLOSED</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center font-bold text-error-content text-lg">No Requests Found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Service Details {% endblock %}
+
+{% block content %}
+
+<!-- Service Request Details Section -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    {% if service_request %}
+    <h2 class="card-title text-lg">Service Request Details:</h2>
+    <table class="table table-lg">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">ID:</td>
+          <td>{{ service_request.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CUSTOMER:</td>
+          <td>
+              {{ service_request.customer.user.fullname }}
+            <!-- <a href="#" class="link link-primary"></a> -->
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">SERVICE:</td>
+          <td>{{ service_request.service().name }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PROFESSIONAL:</td>
+          <td>
+              {% if service_request.status == "REQUESTED" %}
+                NOT ASSIGNED
+              {% else %}
+                {{ service_request.prof().user.fullname }}
+              {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">STATUS:</td>
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+              <span class="badge badge-lg badge-error">REQUESTED</span>
+            {% elif service_request.status == "ASSIGNED" %}
+              <span class="badge badge-lg badge-warning">ASSIGNED</span>
+            {% else %}
+              <span class="badge badge-lg badge-success">CLOSED</span>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">RATING:</td>
+          <td>{{ service_request.stars() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">REVIEW:</td>
+          <td>{{ service_request.remarks }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">COMPLETED:</td>
+          <td>{{ service_request.completed_time() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CREATED:</td>
+          <td>{{ service_request.created.ctime() }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% else %}
+    <p class="text-center text-lg font-bold">Requested service not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+        Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

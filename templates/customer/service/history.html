@@ -1,0 +1,75 @@
+<!-- Service History -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Service Request History:</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>SERVICE</th>
+          <th>PROFESSIONAL</th>
+          <th>CONTACT</th>
+          <th>REQUESTED</th>
+          <th>STATUS</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if service_requests %}
+        {% for service_request in service_requests %}
+        <tr>
+          <td>
+            <a href="{{ url_for('customer_request_details', cust_id=customer.id, req_id=service_request.id) }}" class="btn btn-sm">
+              {{ service_request.id }}
+            </a>
+          </td>
+          <td>{{ service_request.service().name }}</td>
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+            <span>NOT ASSIGNED</span>
+            {% else %}
+            <span>{{ service_request.prof().user.fullname }}</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+            <span>NONE</span>
+            {% else %}
+            <span>{{ service_request.prof().contact }}</span>
+            {% endif %}
+          </td>
+          <td>{{ service_request.created.ctime() }}</td>
+          <!-- Status of request: -->
+          <!-- can be "Close?", "Closed", "Requested" -->
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+            <span class="badge badge-lg badge-error">{{ service_request.status }}</span>
+            {% elif service_request.status == "CLOSED" %}
+            <span class="badge badge-lg badge-success">{{ service_request.status }}</span>
+            {% elif service_request.status == "ASSIGNED" %}
+            <span class="badge badge-lg badge-warning">{{ service_request.status }}</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+            <a href="{{ url_for('customer_request_cancel', cust_id=customer.id, req_id=service_request.id) }}">
+              <span class="btn btn-sm btn-error">Cancel</span>
+            </a>
+            {% elif service_request.status == "ASSIGNED" %}
+            <a href="{{ url_for('customer_request_close', cust_id=customer.id, req_id=service_request.id) }}">
+              <span class="btn btn-sm btn-primary">Close?</span>
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="7" class="text-center font-bold text-error-content text-lg">No Request History</td>
+        </tr>
+        {% endif %}
+
+      </tbody>
+    </table>
+  </div>
+</section>

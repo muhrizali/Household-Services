@@ -1,0 +1,111 @@
+{% extends "base/loggedout.html" %}
+
+{% block title %} Customer Register {% endblock %}
+
+{% block content %}
+<!-- Register form for Customer -->
+<div class="card card-bordered w-1/2">
+  <form action="{{ url_for('customer_register') }}" method="post" class="card-body form-control">
+    {{ form.csrf_token }}
+    {{ form.role(value="CUSTOMER") }}
+
+    <h2 class="card-title text-2xl text-center">Customer Signup</h2>
+
+    <!-- Form Errors -->
+    {% include "form_errors.html" %}
+
+    <!-- FLASK FLASH MESSAGES -->
+    {% include "flashes.html" %}
+    
+    <table class="table table-lg">
+      <tr>
+        <td>
+          <!-- <label for="email">Email:</label> -->
+          {{ form.email.label }}
+        </td>
+        <td>
+          <!-- <input id="email" type="text" placeholder="johndoe@email.com" class="input w-full input-bordered" /> -->
+          {{ form.email(class="input w-full input-bordered", placeholder="john.doe@gmail.com") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="fullname">Full name:</label> -->
+          {{ form.fullname.label }}
+        </td>
+        <td>
+          <!-- <input id="fullname" type="text" placeholder="John Doe" class="input w-full input-bordered" /> -->
+          {{ form.fullname(class="input w-full input-bordered", placeholder="John Doe") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="username">Username:</label> -->
+          {{ form.username.label }}
+        </td>
+        <td>
+          <!-- <input id="username" type="text" placeholder="johndoe" class="input w-full input-bordered" /> -->
+          {{ form.username(class="input w-full input-bordered", placeholder="johndoe") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="password">Password:</label> -->
+          {{ form.password.label }}
+        </td>
+        <td>
+          <!-- <input id="password" type="password" placeholder="my-secret-password" class="input w-full input-bordered" /> -->
+          {{ form.password(class="input w-full input-bordered", placeholder="Your-Secret-Password") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="password">Password:</label> -->
+          {{ form.confirm.label }}
+        </td>
+        <td>
+          <!-- <input id="password" type="password" placeholder="my-secret-password" class="input w-full input-bordered" /> -->
+          {{ form.confirm(class="input w-full input-bordered", placeholder="Your-Secret-Password") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="password">Password:</label> -->
+          {{ form.contact.label }}
+        </td>
+        <td>
+          <!-- <input id="password" type="password" placeholder="my-secret-password" class="input w-full input-bordered" /> -->
+          {{ form.contact(class="input w-full input-bordered", placeholder="9876543210") }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="address">Address:</label> -->
+          {{ form.address.label }}
+        </td>
+        <td>
+          <!-- <textarea id="address" name="address" rows="4" placeholder="House no. 314, Privet Drive..."
+          class="textarea w-full textarea-bordered"></textarea> -->
+          {{ form.address(class="textarea w-full textarea-bordered", placeholder="Your Address...") }}
+          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- <label for="pincode">Pin code:</label> -->
+          {{ form.pincode.label }}
+        </td>
+        <td>
+          <!-- <input id="pincode" type="number" placeholder="110025" class="input w-full input-bordered" /> -->
+          {{ form.pincode(class="input w-full input-bordered", placeholder="112233") }}
+        </td>
+      </tr>
+    </table>
+    <input value="Register" type="submit" class="btn btn-block btn-lg btn-primary" />
+    <p class="text-center pt-2">
+      Already a member?
+      <a href="{{ url_for('login') }}" class="link link-primary">Login here</a>
+    </p>
+  </form>
+</div>
+{% endblock %}

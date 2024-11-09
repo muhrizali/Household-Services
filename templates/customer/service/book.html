@@ -1,0 +1,34 @@
+{% extends "base/customer/loggedin.html" %}
+
+{% block title %} Book Service {% endblock %}
+
+{% block content %}
+<!-- MAIN CONTENT -->
+<!-- Book Service Form -->
+<div class="card w-1/4 border-2 rounded-sm border-primary-content/25">
+    <div class="card-body">
+        <!-- Form Errors -->
+      {% include "form_errors.html" %}
+
+      <!-- FLASK FLASH MESSAGES -->
+      {% include "flashes.html" %}
+      
+        {% if prof %}
+        <h2 class="text-lg text-center font-semibold">
+            Do you want to book the service <b>{{service.name}}</b> from the professional <b>{{ prof.user.fullname }}</b>?
+        </h2>
+        <form action="{{ url_for('customer_service_book', cust_id=customer.id, service_id=service.id, prof_id=prof.id) }}" method="post" class="form-control mt-4">
+            <div class="flex items-center justify-center gap-4">
+                {{ form.book(class="btn btn-block btn-success", value="Book") }}
+            </div>
+        </form>
+        {% else %}
+        <p class="text-center text-lg font-bold">Requested Professional not found</p>
+        {% endif %}
+
+        <p class="text-center pt-2">
+            Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

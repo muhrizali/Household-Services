@@ -1,0 +1,17 @@
+{% extends "base/professional/loggedin.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<!-- <h1>User ID: {{ professional.user_id }}</h1>
+<h1>Prof ID: {{ professional.id }}</h1> -->
+
+<!-- Accepted Services List Table -->
+{% include "professional/service/accepted_list.html" %}
+
+<!-- New Service Requests List Table -->
+{% include "professional/service/new_requests.html" %}
+
+<!-- Closed Services List Table -->
+{% include "professional/service/closed_list.html" %}
+{% endblock %}

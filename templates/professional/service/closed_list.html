@@ -1,0 +1,39 @@
+<!-- Closed Services List Table -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Closed Service Requests</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Contact</th>
+          <th>Location</th>
+          <th>Pin Code</th>
+          <th>Closed</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for service_request in closed_requests %}
+        <tr>
+          <td>
+            <a href="{{ url_for('professional_request_details', request_id=service_request.id) }}" class="btn btn-sm">{{
+              service_request.id }}</a>
+          </td>
+          <td>{{ service_request.customer.user.fullname }}</td>
+          <td>{{ service_request.service().name }}</td>
+          <td>{{ service_request.customer.contact }}</td>
+          <td>{{ service_request.customer.pincode }}</td>
+          <td>{{ service_request.completed_time() }}</td>
+          <td>{{ service_request.stars() }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="8" class="text-center font-bold text-error-content text-lg">No Requests Closed</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

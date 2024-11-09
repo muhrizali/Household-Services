@@ -1,0 +1,30 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Activate Customer {% endblock %}
+
+{% block content %}
+<!-- MAIN CONTENT -->
+<!-- Approve Form -->
+<div class="card w-1/4 border-2 rounded-sm border-primary-content/25">
+    <div class="card-body">
+        <!-- FLASK FLASH MESSAGES -->
+        {% include "flashes.html" %}
+        {% if customer %}
+        <h2 class="text-lg text-center font-semibold">
+            Do you want to activate the customer <b>{{ customer.user.fullname }}</b>?
+        </h2>
+        <form action="{{ url_for('customer_activate', cust_id=customer.id) }}" method="post" class="form-control mt-4">
+            <div class="flex items-center justify-center gap-4">
+                {{ form.activate(class="btn btn-block btn-success", value="Activate") }}
+            </div>
+        </form>
+        {% else %}
+        <p class="text-center text-lg font-bold">Requested customer not found</p>
+        {% endif %}
+
+        <p class="text-center pt-2">
+            Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

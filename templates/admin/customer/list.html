@@ -1,0 +1,54 @@
+<!-- MAIN CONTENT -->
+<!-- Customer List Table -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+  <div class="card-body">
+    <h2 class="text-xl font-semibold">Customers</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>EMAIL</th>
+          <th>CONTACT</th>
+          <th>STATUS</th>
+          <th>JOINED</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for customer in customers %}
+        <tr>
+          <td>
+            <a href="{{ url_for('customer_details', cust_id=customer.id) }}" class="btn btn-sm">{{ customer.id }}</a>
+          </td>
+          <td>{{ customer.user.fullname }}</td>
+          <td>{{ customer.user.email }}</td>
+          <td>{{ customer.contact }}</td>
+          <td>
+            {% if customer.status == "ACTIVE" %}
+            <span class="badge badge-lg badge-success">{{ customer.status }}</span>
+            {% else %}
+            <span class="badge badge-lg badge-error">{{ customer.status }}</span>
+            {% endif %}
+          </td>
+          <td>{{ customer.created.ctime() }}</td>
+          <td>
+            <span>
+              <a href="{{ url_for('customer_activate', cust_id=customer.id) }}">
+                <button class="btn btn-sm btn-success">Activate</button>
+              </a>
+              <a href="{{ url_for('customer_block', cust_id=customer.id) }}">
+                <button class="btn btn-sm btn-error">Block</button>
+              </a>
+            </span>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="text-center font-bold text-error-content text-lg">No Customers Found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

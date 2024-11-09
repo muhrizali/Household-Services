@@ -1,0 +1,61 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Service Details {% endblock %}
+
+{% block content %}
+
+<!-- Service Details Section -->
+<!-- Services Details -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    {% if service %}
+    <h2 class="card-title text-lg">Service Details:</h2>
+    <table class="table table-lg">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">ID:</td>
+          <td>{{ service.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">NAME:</td>
+          <td>{{ service.name }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">DESCRIPTION:</td>
+          <td>{{ service.description }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">TIME REQUIRED (Approx.):</td>
+          <td>{{ service.timereq }} Hours</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">PRICE:</td>
+          <td>{{ service.price }} Rupees</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">CREATED:</td>
+          <td>{{ service.created.ctime() }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Service Actions -->
+    <div class="flex items-center justify-end gap-2">
+      <a href="{{ url_for('service_edit', service_id=service.id) }}">
+        <button class="btn btn-sm btn-warning">Edit</button>
+      </a>
+      <a href="{{ url_for('service_delete', service_id=service.id) }}">
+        <button class="btn btn-sm btn-error">Delete</button>
+      </a>
+    </div>
+
+    {% else %}
+    <p class="text-center text-lg font-bold">Requested service not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

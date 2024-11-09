@@ -1,0 +1,29 @@
+{% extends "base/admin/loggedin.html" %}
+
+{% block title %} Delete Service {% endblock %}
+
+{% block content %}
+<!-- MAIN CONTENT -->
+<!-- Service Delete Form -->
+<div class="card w-1/4 border-2 rounded-sm border-primary-content/25">
+    <div class="card-body">
+
+        {% if service %}
+        <h2 class="text-lg text-center font-semibold">
+            Do you want to delete the service <b>{{ service.name }}</b>?
+        </h2>
+        <form action="{{ url_for('service_delete', service_id=service.id) }}" method="post" class="form-control mt-4">
+            <div class="flex items-center justify-center gap-4">
+                {{ form.delete(class="btn btn-block btn-error", value="Delete") }}
+            </div>
+        </form>
+        {% else %}
+        <p class="text-center text-lg font-bold">Requested service not found</p>
+        {% endif %}
+
+        <p class="text-center pt-2">
+            Go back to <a href="{{ url_for('admin_home') }}" class="link link-primary">Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

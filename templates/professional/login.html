@@ -1,0 +1,50 @@
+{% extends "base/loggedout.html" %} {% block title %} Professional Login {% endblock
+%} {% block content %}
+<!-- login form for all -->
+<div class="card card-bordered w-1/2">
+    <form action="{{ url_for('login') }}" method="post" class="card-body form-control">
+        {{ form.csrf_token }}
+        {{ form.role(value="PROFESSIONAL") }}
+
+        <h2 class="card-title text-2xl text-center">Professional Login</h2>
+        {% if form.errors %}
+        <div class="bg-error p-4 my-4 rounded-md border-2 border-error-content/50">
+            <h2 class="text-lg font-medium">Form Errors</h2>
+            <ul>
+                {% for field_name, field_errors in form.errors|dictsort if
+                field_errors %} {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+                {% endfor %} {% endfor %}
+            </ul>
+        </div>
+        {% endif %} {% if loginerror %}
+        <div class="bg-error p-4 my-4 rounded-md border-2 border-error-content/50">
+            <h2 class="text-lg font-medium">Login Failed</h2>
+            <p class="text-base">Incorrect username or password</p>
+        </div>
+        {% endif %}
+        <table class="table table-lg">
+            <tr>
+                <td>{{ form.email.label }}</td>
+                <td>
+                    {{ form.email(placeholder="john.doe@gmail.com", class="input w-full input-bordered") }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{{ form.password.label }}</td>
+                <td>
+                    {{ form.password(placeholder="Your-Secret-Password",
+                    class="input w-full input-bordered") }}
+                </td>
+            </tr>
+        </table>
+
+        <input value="Login" type="submit" class="btn btn-block btn-lg btn-primary" />
+        <p class="text-center pt-2">
+            New member?
+            <a href="{{ url_for('professional_register') }}" class="link link-primary">Create Account</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

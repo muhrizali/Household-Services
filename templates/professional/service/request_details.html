@@ -1,0 +1,93 @@
+{% extends "base/professional/loggedin.html" %}
+
+{% block title %} Service Request Details {% endblock %}
+
+{% block content %}
+<!-- Service Request Details Section -->
+<section class="w-2/3 card card-bordered border-2">
+  <div class="card-body">
+    {% if request %}
+    <h2 class="card-title text-lg">Service Request Details:</h2>
+    <table class="table table-lg">
+      <tbody>
+        <tr>
+          <td class="text-lg font-bold underline">ID:</td>
+          <td>{{ service_request.id }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Customer:</td>
+          <td>
+              {{ service_request.customer.user.fullname }}
+            <!-- <a href="#" class="link link-primary"></a> -->
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Service:</td>
+          <td>{{ service_request.service().name }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Professional:</td>
+          <td>
+              {% if service_request.status == "REQUESTED" %}
+                NOT ASSIGNED
+              {% else %}
+                {{ service_request.prof().user.fullname }}
+              {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Status:</td>
+          <td>
+            {% if service_request.status == "REQUESTED" %}
+              <span class="badge badge-lg badge-error">REQUESTED</span>
+            {% elif service_request.status == "ASSIGNED" %}
+              <span class="badge badge-lg badge-warning">ASSIGNED</span>
+            {% else %}
+              <span class="badge badge-lg badge-success">CLOSED</span>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Rating:</td>
+          <td>{{ service_request.stars() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Review:</td>
+          <td>{{ service_request.remarks }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Completed On:</td>
+          <td>{{ service_request.completed_time() }}</td>
+        </tr>
+        <tr>
+          <td class="text-lg font-bold underline">Created On:</td>
+          <td>{{ service_request.created.ctime() }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Service Request Details -->
+    <div class="flex items-center justify-end gap-2">
+      {% if service_request.status == "REQUESTED" %}
+      <a href="{{ url_for('request_accept', prof_id=current_user.get_prof().id, req_id=service_request.id) }}">
+        <button class="btn btn-sm btn-success">Accept</button>
+      </a>
+      {% elif service_request.status == "ASSIGNED" %}
+        <a href="{{ url_for('request_reject', prof_id=current_user.get_prof().id, req_id=service_request.id) }}">
+          <button class="btn btn-sm btn-error">Reject</button>
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+    </div>
+
+    {% else %}
+    <p class="text-center text-lg font-bold">Requested service not found</p>
+    {% endif %}
+
+    <p class="text-center pt-2">
+        Go back to <a href="{{ url_for('professional_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

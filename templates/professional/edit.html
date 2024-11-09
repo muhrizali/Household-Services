@@ -1,0 +1,103 @@
+{% extends "base/professional/loggedin.html" %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<!-- Service Details -->
+<div class="card card-bordered w-1/2">
+  <div class="card-body form-control">
+
+    <form action="{{ url_for('professional_edit', prof_id=prof.id) }}" method="post">
+      {{ form.csrf_token }}
+
+      <h2 class="card-title text-2xl text-center">Profile Edit</h2>
+
+      <!-- Form Errors -->
+      {% include "form_errors.html" %}
+
+      <!-- FLASK FLASH MESSAGES -->
+      {% include "flashes.html" %}
+
+      <table class="table table-lg">
+        <tr>
+          <td>
+            {{ form.fullname.label }}
+          </td>
+          <td>
+            {{ form.fullname(value=prof.user.fullname, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form.username.label }}
+          </td>
+          <td>
+            {{ form.username(value=prof.user.username, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form.email.label }}
+          </td>
+          <td>
+            {{ form.email(value=prof.user.email, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label }}</td>
+          <td>
+            {{ form.password(value=prof.user.password, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.contact.label }}</td>
+          <td>
+            {{ form.contact(value=prof.contact, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.address.label }}</td>
+          <td>
+            <textarea rows="4" name="address" id="address"
+              class="textarea w-full textarea-bordered">{{ prof.address }}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.pincode.label }}</td>
+          <td>
+            {{ form.pincode(value=prof.pincode, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.experience.label }}</td>
+          <td>
+            {{ form.experience(value=prof.experience, class="input w-full input-bordered") }}
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.description.label }}</td>
+          <td>
+            <textarea rows="4" name="description" id="description"
+              class="textarea w-full textarea-bordered">{{ prof.description }}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form.service_id.label }}
+          </td>
+          <td>
+            {{ form.service_id(class="select w-full select-bordered") }}
+          </td>
+        </tr>
+
+      </table>
+      <input value="Submit" type="submit" class="btn btn-block btn-lg btn-primary mt-8" />
+    </form>
+    <p class="text-center pt-2">
+      Go back to <a href="{{ url_for('professional_home', user_id=current_user.id) }}"
+        class="link link-primary">Home</a>
+    </p>
+  </div>
+
+</div>
+{% endblock %}

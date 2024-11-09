@@ -1,0 +1,47 @@
+{% extends "base/customer/loggedin.html" %}
+
+{% block title %} Service Details {% endblock %}
+
+{% block content %}
+
+<!-- Service Details Section -->
+<!-- Services Details -->
+<section class="card rounded-sm w-3/4 border-2 border-primary-content/25">
+    <span class="card-body">
+        {% if service %}
+        <h2 class="card-title text-lg">Service Details:</h2>
+        <table class="table table-lg">
+            <tbody>
+                <tr>
+                    <td class="text-lg font-bold underline">NAME:</td>
+                    <td>{{ service.name }}</td>
+                </tr>
+                <tr>
+                    <td class="text-lg font-bold underline">DESCRIPTION:</td>
+                    <td>{{ service.description }}</td>
+                </tr>
+                <tr>
+                    <td class="text-lg font-bold underline">TIME REQUIRED:</td>
+                    <td>{{ service.timereq }} Hours</td>
+                </tr>
+                <tr>
+                    <td class="text-lg font-bold underline">BASE PRICE:</td>
+                    <td>{{ service.price }} Rupees</td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        {% else %}
+        <p class="text-center text-lg font-bold">Requested service not found</p>
+        {% endif %}
+        
+        <p class="text-center mt-4">
+            Go back to <a href="{{ url_for('customer_home', user_id=current_user.id) }}" class="link link-primary">Home</a>
+        </p>
+</section>
+
+<!-- Service Professionals -->
+{% include "customer/service/packages.html" %}
+
+{% endblock %}
