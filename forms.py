@@ -2,6 +2,8 @@ from models import db
 from models import Service, Professional
 from sqlalchemy import select
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from werkzeug.utils import secure_filename
 from wtforms import StringField, EmailField, PasswordField, TextAreaField, IntegerField, SelectField, HiddenField, SubmitField, SearchField
 from wtforms.validators import DataRequired, InputRequired, Length, EqualTo, NumberRange, Disabled
 
@@ -55,6 +57,10 @@ class ProfessionalRegisterForm(BaseRegisterForm):
     contact = StringField("Contact Number", [DataRequired(), InputRequired(), Length(min=10, max=10)])
     address = TextAreaField("Address", [DataRequired(), InputRequired()])
     pincode = StringField("Pin Code", [DataRequired(), InputRequired(), Length(min=6, max=6)])
+
+    # documents for verification; in PDF only
+    docs = FileField("Documents (PDFs)", [FileRequired(), FileAllowed(["pdf"], "PDF Files Only")])
+
 
     experience = IntegerField("Experience (In Years)", [DataRequired(), InputRequired(), NumberRange(min=0)])
     description = TextAreaField("Description", [DataRequired(), InputRequired()])

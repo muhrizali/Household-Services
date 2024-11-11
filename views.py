@@ -8,6 +8,7 @@ from login import load_user
 from flask_login import login_user, logout_user
 from time import sleep
 from datetime import datetime
+import os
 
 # LOGIN, LOGOUT
 @app.route("/", methods=["GET", "POST"])
@@ -92,9 +93,14 @@ def customer_register():
 # REGISTER:PROFESSIONAL
 @app.route("/register/professional", methods=["GET", "POST"])
 def professional_register():
+    # for GET; create empty form
+    # provide this empty form to template
+    form = ProfessionalRegisterForm()
+
     # for POST; create form from POST data
     if request.method == "POST":
-        form = ProfessionalRegisterForm(request.form)
+        # form = ProfessionalRegisterForm(request.form)
+        form = ProfessionalRegisterForm()
         if form.validate():
             user_data = {
                 "fullname": form.fullname.data,
@@ -125,11 +131,10 @@ def professional_register():
                 prof.user = user
                 db.session.add(prof)
                 db.session.commit()
+                docs = form.docs.data
+                docs_name = f"PROF_DOCS_{prof.id}.pdf"
+                docs.save(os.path.join("static/PROF_DOCS", docs_name))
                 return redirect(url_for('register_success'))
-    else:
-        # for GET; create empty form
-        # provide this empty form to template
-        form = ProfessionalRegisterForm()
     return render_template("professional/register.html", form=form)
 
 # REGISTER SUCCESS

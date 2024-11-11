@@ -27,6 +27,12 @@
           <td>{{ prof.service.name }}</td>
         </tr>
         <tr>
+          <td class="text-lg font-bold underline">DOCUMENTS:</td>
+          <td>
+            <a href="{{ prof.get_docs_file() }}" class="link" download>Verification Documents</a>
+          </td>
+        </tr>
+        <tr>
           <td class="text-lg font-bold underline">AVERAGE RATING:</td>
           <td>{{ prof.get_avg_rating() }}</td>
         </tr>

@@ -4,7 +4,7 @@
 <!-- MAIN CONTENT -->
 <!-- Register form for Customer -->
 <div class="card card-bordered w-1/2">
-  <form action="{{ url_for('professional_register') }}" method="post" class="card-body form-control">
+  <form action="{{ url_for('professional_register') }}" method="POST" enctype="multipart/form-data" class="card-body form-control">
     {{ form.csrf_token }}
     {{ form.role(value="PROFESSIONAL") }}
 
@@ -76,6 +76,12 @@
         <td>{{ form.experience.label }}</td>
         <td>
           {{ form.experience(placeholder="10, 8, 6...", class="input w-full input-bordered") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.docs.label }}</td>
+        <td>
+          {{ form.docs(class="file-input w-full file-input-bordered") }}
         </td>
       </tr>
       <tr>

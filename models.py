@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import url_for
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func, or_, and_
 from sqlalchemy import select, delete, func, Integer, String, DateTime, Text, ForeignKey, extract
@@ -6,6 +7,7 @@ from typing import List, Optional
 from datetime import datetime
 from flask_login import UserMixin
 from apps import app
+import os
 
 # initializing sqlalchemy with flask
 
@@ -113,6 +115,10 @@ class Professional(db.Model):
         if not result:
             return 0
         return result[0]
+    
+    def get_docs_file(self):
+        docspath = f"PROF_DOCS/PROF_DOCS_{self.id}.pdf"
+        return url_for("static", filename=docspath)
 
     def get_new_requests_with_year(self, year):
         sql = select(ServiceRequest).where(
