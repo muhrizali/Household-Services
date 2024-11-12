@@ -520,13 +520,5 @@ def rm_data():
     rm_all_requests()
 
 # rm_data()
-# create_dummy_data()
-# rm_all_requests()
-create_dummy_requests()
+# create_dummy_admin()
 get_data()
-
-
-
-# d = datetime.now()
-# print(d.ctime())
-# print(d.strftime())

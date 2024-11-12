@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired, InputRequired, Length, EqualTo, Num
 def get_current_services():
     # main code
     sql = select(Service).order_by(Service.name)
-    results = db.session.scalars(sql)
+    results = db.session.scalars(sql).all()
     choices = [(row.id, row.name) for row in results]
     return choices
 
